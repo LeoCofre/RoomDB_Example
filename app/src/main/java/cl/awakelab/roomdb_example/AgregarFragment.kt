@@ -27,13 +27,13 @@ class AgregarFragment : Fragment() {
 
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAgregarBinding.inflate(layoutInflater, container, false)
         initListener()
+        obtenerListaTareas()
         return binding.root
     }
 
@@ -51,4 +51,14 @@ class AgregarFragment : Fragment() {
 
     }
 
+    private  fun obtenerListaTareas() {
+        val dao = TareaBaseDatos.getDatabase(requireContext()).getTaskDao()
+        GlobalScope.launch {
+            val tareas = dao.obtenerTareas()
+            val tasksAsText = tareas.joinToString("\n") { it.nombre }
+            binding.tvLista.text = tasksAsText
+        }
+
+
+    }
 }
