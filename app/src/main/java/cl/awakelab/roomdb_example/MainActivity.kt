@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 /*
- [ ] Navigation
- [ ] Fragmento agregar
+ [x] Navigation
+ [x] Fragmento agregar
  [ ] Crear Interfaz
  [ ] Room
       [ ] _Dao
