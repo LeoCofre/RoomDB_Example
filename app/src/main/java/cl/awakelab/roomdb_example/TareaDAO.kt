@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 
 @Dao
-interface TareaDao   {
+interface TareaDAO   {
     @Insert
     suspend fun insertarTarea(tarea: Tarea)
 
