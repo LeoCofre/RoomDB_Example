@@ -51,7 +51,7 @@ class AgregarFragment : Fragment() {
 
     }
 
-    private  fun obtenerListaTareas() {
+    private fun obtenerListaTareas() {
         val dao = TareaBaseDatos.getDatabase(requireContext()).getTaskDao()
         GlobalScope.launch {
             val tareas = dao.obtenerTareas()
