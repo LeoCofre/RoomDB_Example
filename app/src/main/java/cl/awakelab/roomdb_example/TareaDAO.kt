@@ -1,5 +1,6 @@
 package cl.awakelab.roomdb_example
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -13,6 +14,6 @@ interface TareaDAO   {
 
     //Devolvemos una lista de tareas
     @Query ("Select * From tabla_tarea order by id asc" )
-     fun obtenerTareas(): List<Tarea>
+     fun obtenerTareas(): LiveData<List<Tarea>>
 
 }
