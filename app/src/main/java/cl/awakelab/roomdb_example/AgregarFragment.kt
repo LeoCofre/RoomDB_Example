@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import cl.awakelab.roomdb_example.databinding.FragmentAgregarBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,7 +24,7 @@ private const val ARG_PARAM2 = "param2"
 class AgregarFragment : Fragment() {
 
     lateinit var binding: FragmentAgregarBinding
-    lateinit var repositorio: Repositorio
+    private val tareaVM: TareaViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,33 +36,29 @@ class AgregarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAgregarBinding.inflate(layoutInflater, container, false)
-        initRepositorio()
         initListener()
         obtenerListaTareas()
         return binding.root
     }
 
-    //Iniciamos repositorio
-    private fun initRepositorio() {
-        repositorio = Repositorio(TareaBaseDatos.getDatabase(requireContext()).getTaskDao())
-    }
 
     private fun initListener() {
         binding.btnAgregarTarea.setOnClickListener {
             val texto = binding.editTextTarea.text.toString()
             guardarTarea(texto)
+            binding.editTextTarea.setText("")
+            Toast.makeText(requireContext(), "Se agrego una tarea", Toast.LENGTH_LONG).show()
         }
     }
 
     private fun guardarTarea(texto: String) {
         val tarea = Tarea(texto)
-        GlobalScope.launch { repositorio.insertarTarea(tarea) }
+        tareaVM.insertarTarea(tarea)
 
     }
 
     private fun obtenerListaTareas() {
-
-        val tareas = repositorio.obtenerTareas().observe(requireActivity()) {
+        tareaVM.obtenerTareas().observe(viewLifecycleOwner) {
             val tasksAsText = it.joinToString("\n") { it.nombre }
             binding.tvLista.text = tasksAsText
         }
