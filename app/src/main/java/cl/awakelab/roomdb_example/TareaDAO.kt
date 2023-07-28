@@ -6,14 +6,14 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface TareaDAO   {
+interface TareaDAO {
 
     //Insertamos la tarea
     @Insert
     suspend fun insertarTarea(tarea: Tarea)
 
     //Devolvemos una lista de tareas
-    @Query ("Select * From tabla_tarea order by id asc" )
-     fun obtenerTareas(): LiveData<List<Tarea>>
+    @Query("Select * From tabla_tarea order by id asc")
+    fun obtenerTareas(): LiveData<List<Tarea>>
 
 }

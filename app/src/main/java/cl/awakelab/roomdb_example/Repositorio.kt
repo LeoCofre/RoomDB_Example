@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 class Repositorio(private val tareaDAO: TareaDAO) {
 
     //Insertamos tareas
-    suspend fun insertarTarea(tarea: Tarea){
+    suspend fun insertarTarea(tarea: Tarea) {
         tareaDAO.insertarTarea(tarea)
     }
 
     //Obtenemos tareas
-    fun  obtenerTareas(): LiveData<List<Tarea>>{
+    fun obtenerTareas(): LiveData<List<Tarea>> {
         return tareaDAO.obtenerTareas()
     }
 }
